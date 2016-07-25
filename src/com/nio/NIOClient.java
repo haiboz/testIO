@@ -44,6 +44,7 @@ public class NIOClient {
 	 * 采用轮询的方式监听selector上是否有需要处理的事件 如果有 则处理
 	 * @throws IOException 
 	 */
+	@SuppressWarnings("rawtypes")
 	public void listen() throws IOException{
 		//轮询访问selector
 		while(true){
