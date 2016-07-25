@@ -31,7 +31,7 @@ public class NIOClient {
 		//将该通道设置为非阻塞
 		channel.configureBlocking(false);
 		//获得一个通道管理器
-		Selector selector = Selector.open();
+		this.selector = Selector.open();
 		//客户端连接服务器 其实方法执行并没有实现连接 需要在listen()方法中调用
 		//chanell.finishConnect()完成连接
 		channel.connect(new InetSocketAddress(ip, port));
@@ -48,7 +48,7 @@ public class NIOClient {
 	public void listen() throws IOException{
 		//轮询访问selector
 		while(true){
-			this.selector.select();
+			selector.select();
 			//获得selector中选中的项的迭代器
 			Iterator iterator = this.selector.selectedKeys().iterator();
 			while(iterator.hasNext()){
@@ -65,7 +65,7 @@ public class NIOClient {
 					//设置成非阻塞
 					channel.configureBlocking(false);
 					//这里可以给服务区发送信息
-					channel.write(ByteBuffer.wrap(new String("客户端向服务器发了一条信息").getBytes()));
+					channel.write(ByteBuffer.wrap(new String("clint send a message to server").getBytes()));
 					//在和服务端连接成功后 为了能接收服务端信息 给通道设置读权限
 					channel.register(this.selector, SelectionKey.OP_READ);
 				}else if(key.isReadable()){//获得了可读的事件
