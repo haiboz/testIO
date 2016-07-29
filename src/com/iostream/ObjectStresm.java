@@ -36,6 +36,13 @@ public class ObjectStresm {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				oos.close();
+				ois.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
