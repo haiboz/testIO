@@ -3,7 +3,6 @@ package com.bio;
 import java.io.IOException;
 import java.util.Random;
 
-import org.omg.Messaging.SyncScopeHelper;
 
 /**
  * 测试BIO
