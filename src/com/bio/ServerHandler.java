@@ -38,7 +38,7 @@ public class ServerHandler implements Runnable{
 				}
 				System.out.println("服务器收到消息："+expression);
 				
-				result = "计算后:"+expression;
+				result = "计算后:"+expression+" end!";
 				
 				out.println(result);
 			}
