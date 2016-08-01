@@ -6,8 +6,9 @@ import java.util.Random;
 
 /**
  * 测试BIO
- * 类TestBIO.java的实现描述：TODO 类实现描述 
- * @author wb-zhaohaibo 2016年8月1日 下午5:31:44
+ * @author 浮生若梦
+ * @date 2016-8-1 下午6:02:55
+ *
  */
 public class TestBIO {
 
