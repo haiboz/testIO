@@ -1,7 +1,7 @@
 package com.bio;
 
 /**
- * 测试在一个有序的二维数字数组中判断是否包含数字n的算法
+ * 测试在一个有序的二维数字数组(不一定是等差的)中判断是否包含数字n的算法
  * 要求程序用时小于1秒钟
  * @author 浮生若梦
  * @date 2016-8-3 上午2:09:56
@@ -11,12 +11,12 @@ public class TestDemionArray {
 	public static void main(String[] args) {
 		long StartTime = System.currentTimeMillis();
 		TestDemionArray test = new TestDemionArray();
-		int arr[][]  = {{1,2,3},
-						{4,5,6},
-						{10,25,49},
-						{51,61,67},
-						{78,130,159}};
-		int testArr[][] = new int[10][20];
+//		int arr[][]  = {{1,2,3},
+//						{4,5,6},
+//						{10,25,49},
+//						{51,61,67},
+//						{78,130,159}};
+		int testArr[][] = new int[15][20];
 		
 		int row = testArr.length;
 		int col = testArr[0].length;
@@ -50,7 +50,7 @@ public class TestDemionArray {
 			System.out.println("数组的元素全都在");
 		}
 		
-		int n = 300;
+		int n = 301;
 		boolean has = test.findN(testArr, n);
 		System.out.println("Array has element "+n+"? \n"+has);
 		long sysTime = System.currentTimeMillis() - StartTime;
@@ -84,7 +84,7 @@ public class TestDemionArray {
 				return false;
 			}else{
 				//多行
-				int index = sum/2 - 1; //中间数顺位下标   5
+				int index = sum/2 - 1; //中间数顺位下标  
 				//计算伪中间数的下标  如果不能正中间 则向前取一位
 				int rowIndex = index / col;//伪中间数取行下标  
 				int colIndex = index % col;//伪中间数取列下标
