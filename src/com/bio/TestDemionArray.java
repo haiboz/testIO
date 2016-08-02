@@ -16,14 +16,31 @@ public class TestDemionArray {
 						{10,25,49},
 						{51,61,67},
 						{78,130,159}};
+		int testArr[][] = new int[10][20];
 		
-		int row = arr.length;
-		int col = arr[0].length;
+		int row = testArr.length;
+		int col = testArr[0].length;
+		System.out.println("源数组如下：");
+		for(int i=0;i<row;i++){
+			for(int j=0;j<col;j++){
+				if(i==0 && j==0){
+					testArr[0][0]=1;
+				}
+				if(i == 0 && j>0){
+					testArr[i][j] = testArr[0][j-1]+1;
+				}
+				if(i>0){
+					testArr[i][j] = testArr[i-1][j]+20;
+				}
+				System.out.print(testArr[i][j]+" ");
+			}
+			System.out.println();
+		}
 		boolean flag = true;
 		for(int i=0;i<row;i++){
 			for(int j=0;j<col;j++){
-				int temp = arr[i][j];
-				if(!test.findN(arr, temp)){
+				int temp = testArr[i][j];
+				if(!test.findN(testArr, temp)){
 					flag = false;
 					System.out.println("不存在的元素："+temp);
 				}
@@ -33,8 +50,8 @@ public class TestDemionArray {
 			System.out.println("数组的元素全都在");
 		}
 		
-		int n = 13;
-		boolean has = test.findN(arr, n);
+		int n = 300;
+		boolean has = test.findN(testArr, n);
 		System.out.println("Array has element "+n+"? \n"+has);
 		long sysTime = System.currentTimeMillis() - StartTime;
 		System.out.println("程序共耗时："+sysTime+"毫秒");
@@ -57,50 +74,61 @@ public class TestDemionArray {
 		int sum = row * col;
 		if(sum % 2 == 0){
 			//总共偶数个
-			int index = sum/2 - 1; //中间数顺位下标   5
-			//计算伪中间数的下标  如果不能正中间 则向前取一位
-			int rowIndex = index / col;//伪中间数取行下标  
-			int colIndex = index % col;//伪中间数取列下标
-			//伪中间数取arr[rowIndex][colIndex]
-			if(arr[rowIndex][colIndex] == n){
-				return true;
-			}else if(arr[rowIndex][colIndex] > n){
-				//在前半部分
-				int nowRow = 0;//分割后的行数
-				if(row % 2 == 0){
-					//行是偶数
-					nowRow = row / 2;
-				}else{
-					//行是奇数
-					nowRow = row / 2 + 1;
-				}
-				int[][] nowArr = new int[nowRow][col];
-				for(int i=0;i<nowRow;i++){
-					for(int j=0;j<col;j++){
-						nowArr[i][j] = arr[i][j];
+			//单行
+			if(row == 1){
+				for(int i=0;i<col;i++){
+					if(arr[0][i] == n){
+						return true;
 					}
 				}
-				return findN(nowArr,n);
+				return false;
 			}else{
-				//在后半部分
-				int nowRow = 0;//分割后的行数
-				int startRow = 0;//分割后的起始行下标
-				if(row % 2 == 0){
-					//行是偶数
-					nowRow = row / 2;
-					startRow = nowRow;
-				}else{
-					//行是奇数
-					nowRow = row / 2 + 1;
-					startRow = nowRow - 1;
-				}
-				int[][] nowArr = new int[nowRow][col];
-				for(int i=0;i<nowRow;i++){
-					for(int j=0;j<col;j++){
-						nowArr[i][j] = arr[startRow+i][j];
+				//多行
+				int index = sum/2 - 1; //中间数顺位下标   5
+				//计算伪中间数的下标  如果不能正中间 则向前取一位
+				int rowIndex = index / col;//伪中间数取行下标  
+				int colIndex = index % col;//伪中间数取列下标
+				//伪中间数取arr[rowIndex][colIndex]
+				if(arr[rowIndex][colIndex] == n){
+					return true;
+				}else if(arr[rowIndex][colIndex] > n){
+					//在前半部分
+					int nowRow = 0;//分割后的行数
+					if(row % 2 == 0){
+						//行是偶数
+						nowRow = row / 2;
+					}else{
+						//行是奇数
+						nowRow = row / 2 + 1;
 					}
+					int[][] nowArr = new int[nowRow][col];
+					for(int i=0;i<nowRow;i++){
+						for(int j=0;j<col;j++){
+							nowArr[i][j] = arr[i][j];
+						}
+					}
+					return findN(nowArr,n);
+				}else{
+					//在后半部分
+					int nowRow = 0;//分割后的行数
+					int startRow = 0;//分割后的起始行下标
+					if(row % 2 == 0){
+						//行是偶数
+						nowRow = row / 2;
+						startRow = nowRow;
+					}else{
+						//行是奇数
+						nowRow = row / 2 + 1;
+						startRow = nowRow - 1;
+					}
+					int[][] nowArr = new int[nowRow][col];
+					for(int i=0;i<nowRow;i++){
+						for(int j=0;j<col;j++){
+							nowArr[i][j] = arr[startRow+i][j];
+						}
+					}
+					return findN(nowArr,n);
 				}
-				return findN(nowArr,n);
 			}
 		}else{
 			//总共奇数个  即为正方形二维数组 或 单行数组
