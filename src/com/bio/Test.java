@@ -84,6 +84,54 @@ public class Test {
             sort(arr, l + 1, high);
         }
     }
+    
+    /**
+     * 按照快速排序法排序
+     * 
+     * @param arr
+     * @return
+     */
+   public void sortS(int[] arr,int low,int high){
+       int l = low;
+       int h = high;
+       int fValue = arr[low];
+       while(l<h){
+           //如果后面的比前面的大 则递减继续判断
+           while(l<h && fValue <= arr[h]){
+               h--;
+           }
+           //遇到后面比较小的 则交换
+           if(l<h){
+               int temp = arr[l];
+               arr[l] = arr[h];
+               arr[h] = temp;
+               l++;
+           }
+           //如果前面的小于选中的值  则递增判断
+           while(l<h && fValue >= arr[l]){
+               l++;
+           }
+           //如果遇到前面的大于后面的 则交换顺序
+           if(l<h){
+               int temp = arr[l];
+               arr[l] = arr[h];
+               arr[h] = temp;
+               h--;
+           }
+       }
+       for(int i=0;i<arr.length;i++){
+           System.out.print(arr[i]+" ");
+       }
+       System.out.println();
+       
+       if(l>low){
+           sortS(arr,low,l-1);
+       }
+       if(h<high){
+           sortS(arr,l+1,high);
+       }
+       
+   }
 
     /**
      * 快速排序法
@@ -178,52 +226,6 @@ public class Test {
         return arr;
     }
 
-    /**
-     * 按照快速排序法排序
-     * 
-     * @param arr
-     * @return
-     */
-   public void sortS(int[] arr,int low,int high){
-       int l = low;
-       int h = high;
-       int fValue = arr[l];
-       while(l<h){
-           //如果后面的比前面的大 则递减继续判断
-           while(l<h && fValue < arr[h]){
-               h--;
-           }
-           //遇到后面比较小的 则交换
-           if(l<h){
-               int temp = arr[l];
-               arr[l] = arr[h];
-               arr[h] = temp;
-               l++;
-           }
-           //如果前面的小于选中的值  则递增判断
-           while(l<h && fValue > arr[l]){
-               l++;
-           }
-           //如果遇到前面的大于后面的 则交换顺序
-           while(l<h){
-               int temp = arr[l];
-               arr[l] = arr[h];
-               arr[h] = temp;
-               h--;
-           }
-       }
-       for(int i=0;i<arr.length;i++){
-           System.out.print(arr[i]+" ");
-       }
-       System.out.println();
-       
-       if(l>low){
-           sortS(arr,low,l-1);
-       }
-       if(h<high){
-           sortS(arr,l+1,high);
-       }
-       
-   }
+    
 
 }
